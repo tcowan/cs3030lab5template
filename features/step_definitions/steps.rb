@@ -98,7 +98,7 @@ end
 Given /^the students table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
 	#dbPath = File.join("tmp","aruba",db)
 	dbPath = db
-	selectStmt = "select id,firstname,lastname,major,email,city,state,zip from students order by id;"
+	selectStmt = "select id,firstname,lastname,email,major,city,state,zip from students order by id;"
 	# remember Ted that when using 'step' you don't prepend the path
 	step "I run `sqlite3 #{dbPath} '#{selectStmt}'`"
 	step "the output should not contain \"Error\""

@@ -50,7 +50,7 @@ class RandomCSV
 			for j in 1..rand(1..@classCount)
 				course = @courses[r.rand(0..@courses.length-1)]
 				termcode = @termCodes[r.rand(0..@termCodes.length-1)]
-				csv = %Q^"#{w}","#{f}","#{s}","#{m}","#{f}.#{s}@mail.weber.edu","#{course}","#{termcode}","#{c}","#{st}","#{z}"^
+				csv = %Q^"#{w}","#{f}","#{s}","#{f}.#{s}@mail.weber.edu","#{m}","#{course}","#{termcode}","#{c}","#{st}","#{z}"^
 				@csvs << csv
 				subjCode, courseNumber = course.split(" ")
 				cls = %Q^#{w}|#{subjCode}|#{courseNumber}|#{termcode}\n^
