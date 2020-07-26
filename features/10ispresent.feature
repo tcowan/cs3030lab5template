@@ -6,4 +6,5 @@ Feature: Script must be named "dbload", present and be marked as executable
 
 	Scenario: dbload must be executable
 		When I run `dbload`
+        And OUTPUT is printed
 		Then 5 points are awarded
