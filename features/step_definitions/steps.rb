@@ -20,7 +20,7 @@ end
 Given /^a random small CSV file "(.*)"$/ do |csv|
 	#log "Building #{csv}"
 	@csv = RandomCSV.new(csv, :small)
-	#log "Students:#{@csv.studentCount}"
+	#log "People:#{@csv.peopleCount}"
 end
 
 Given /^the classes table in "(.*)" should be defined correctly$/ do |db|
@@ -49,55 +49,55 @@ Given /^the classes table in "(.*)" should be defined correctly$/ do |db|
 end
 
 
-Given /^the students table in "(.*)" should be defined correctly$/ do |db|
+Given /^the people table in "(.*)" should be defined correctly$/ do |db|
 	dbPath = File.join("tmp","aruba",db)
-	create = `sqlite3 #{dbPath} 'select count(*) from students'`
+	create = `sqlite3 #{dbPath} 'select count(*) from people'`
 	if create.match(/no such table/)
-		raise "#{db} does not have table 'students' defined"
+		raise "#{db} does not have table 'people' defined"
 	end
-	create = `sqlite3 #{dbPath} '.schema students'`
+	create = `sqlite3 #{dbPath} '.schema people'`
 	checkFor = "id text primary key unique"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "firstname text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "lastname text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "major text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "email text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "city text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "state text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 	checkFor = "zip text"
 	if !create.match(/#{checkFor}/i)
-		raise "#{db} table students does not include column '#{checkFor}'"
+		raise "#{db} table people does not include column '#{checkFor}'"
 	end
 end
 
-Given /^the count of students from "(.*)" in "(.*)" should be correct$/ do |csv, db|
+Given /^the count of people from "(.*)" in "(.*)" should be correct$/ do |csv, db|
 	dbPath = File.join("tmp","aruba",db)
-	count = `sqlite3 #{dbPath} 'select count(*) from students'`
+	count = `sqlite3 #{dbPath} 'select count(*) from people'`
 	if count.match(/error/i) or $?.to_i > 0
 		raise "Error rc=#{$?.to_i} returned from sqlite3: #{count}"
 	else
-		if count.to_i != @csv.studentCount
-			raise "Your student table contains #{count.to_i} rows but should contain #{@csv.studentCount}"
+		if count.to_i != @csv.peopleCount
+			raise "Your people table contains #{count.to_i} rows but should contain #{@csv.peopleCount}"
 		end
 	end
 end
@@ -114,21 +114,21 @@ Given /^the count of classes from "(.*)" in "(.*)" should be correct$/ do |csv, 
 	end
 end
 	
-Given /^the students table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
+Given /^the peoples table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
 	#dbPath = File.join("tmp","aruba",db)
 	dbPath = db
-	selectStmt = "select id,firstname,lastname,email,major,city,state,zip from students order by id;"
+	selectStmt = "select id,firstname,lastname,email,major,city,state,zip from people order by id;"
 	# remember Ted that when using 'step' you don't prepend the path
 	step "I run `sqlite3 #{dbPath} '#{selectStmt}'`"
 	step "the output should not contain \"Error\""
 	temp_output = all_commands.map { |c| c.output }.join("\n")
 	#log "Output:\n#{temp_output}"
-	if not temp_output.include? @csv.students.join("")
-		log "Your student data:\n#{temp_output}\n\nExpected student data:\n#{@csv.students.sort.join("")}"
-		raise "Student data in #{db} not as expected"
+	if not temp_output.include? @csv.people.join("")
+		log "Your people data:\n#{temp_output}\n\nExpected people data:\n#{@csv.peoples.sort.join("")}"
+		raise "People data in #{db} not as expected"
 	end
 	
-	#pending #todo: call sqlite3 to extract and sort a count of records in his students table and compare them to my students table
+	#pending #todo: call sqlite3 to extract and sort a count of records in his peoples table and compare them to my peoples table
 end
 	
 Given /^the classes table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
@@ -141,11 +141,11 @@ Given /^the classes table data from "(.*)" in "(.*)" should be correct$/ do |csv
 	temp_output = all_commands.map { |c| c.output }.join("\n")
 	#log "Output:\n#{temp_output}"
 	if not temp_output.include? @csv.classes.sort.join("")
-		log "Your classes data:\n#{temp_output}\n\nExpected student data:\n#{@csv.classes.sort.join("")}"
+		log "Your classes data:\n#{temp_output}\n\nExpected people data:\n#{@csv.classes.sort.join("")}"
 		raise "Classes data in #{db} not as expected"
 	end
 	
-	#pending #todo: call sqlite3 to extract and sort a count of records in his students table and compare them to my students table
+	#pending #todo: call sqlite3 to extract and sort a count of records in his peoples table and compare them to my peoples table
 end
 	
 Given /^(.*) points are awarded/ do |points|
