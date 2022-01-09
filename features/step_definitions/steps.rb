@@ -114,7 +114,7 @@ Given /^the count of classes from "(.*)" in "(.*)" should be correct$/ do |csv, 
 	end
 end
 	
-Given /^the peoples table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
+Given /^the people table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
 	#dbPath = File.join("tmp","aruba",db)
 	dbPath = db
 	selectStmt = "select id,firstname,lastname,email,major,city,state,zip from people order by id;"
@@ -124,11 +124,11 @@ Given /^the peoples table data from "(.*)" in "(.*)" should be correct$/ do |csv
 	temp_output = all_commands.map { |c| c.output }.join("\n")
 	#log "Output:\n#{temp_output}"
 	if not temp_output.include? @csv.people.join("")
-		log "Your people data:\n#{temp_output}\n\nExpected people data:\n#{@csv.peoples.sort.join("")}"
+		log "Your people data:\n#{temp_output}\n\nExpected people data:\n#{@csv.people.sort.join("")}"
 		raise "People data in #{db} not as expected"
 	end
 	
-	#pending #todo: call sqlite3 to extract and sort a count of records in his peoples table and compare them to my peoples table
+	#pending #todo: call sqlite3 to extract and sort a count of records in his people table and compare them to my people table
 end
 	
 Given /^the classes table data from "(.*)" in "(.*)" should be correct$/ do |csv, db|
@@ -145,7 +145,7 @@ Given /^the classes table data from "(.*)" in "(.*)" should be correct$/ do |csv
 		raise "Classes data in #{db} not as expected"
 	end
 	
-	#pending #todo: call sqlite3 to extract and sort a count of records in his peoples table and compare them to my peoples table
+	#pending #todo: call sqlite3 to extract and sort a count of records in his people table and compare them to my people table
 end
 	
 Given /^(.*) points are awarded/ do |points|
