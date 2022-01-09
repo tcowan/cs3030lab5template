@@ -1,11 +1,11 @@
-#require_relative "studentdata"
+#require_relative "peopledata"
 
 class RandomCSV
 
 	def initialize(csv, size=:small)
 		@csv = csv
 		@csvFilePath = File.join("tmp", "aruba", @csv)
-		@studentsFilePath = File.join("tmp", "aruba", @csv + ".students")
+		@peopleFilePath = File.join("tmp", "aruba", @csv + ".people")
 		@classesFilePath = File.join("tmp", "aruba", @csv + ".classes")
 		@firstNames = FIRSTNAMES
 		@surNames = SURNAMES
@@ -17,20 +17,20 @@ class RandomCSV
 		@termCodes = TERMCODES
 
 		r = Random.new
-		# determine number of students and classes
+		# determine number of people and classes
 		if size == :small
-			@studentCount = r.rand(3..7)
+			@peopleCount = r.rand(3..7)
 			@classCount = r.rand(2..5)
 		else
-			@studentCount = r.rand(2..100)
+			@peopleCount = r.rand(2..100)
 			@classCount = r.rand(5..20)
 		end
 
 		wnumber = 1
 		@csvs = Array.new
-		@students = Array.new
+		@people = Array.new
 		@classes = Array.new
-		for i in 1..@studentCount
+		for i in 1..@peopleCount
 			if size == :small
 				@classCount = r.rand(2..3)
 			else
@@ -44,8 +44,8 @@ class RandomCSV
 			c = @cities[r.rand(0..@cities.length-1)]
 			st = @states[r.rand(0..@states.length-1)]
 			z = @zips[r.rand(0..@zips.length-10)]
-			student = %Q^#{w}|#{f}|#{s}|#{f}.#{s}@mail.weber.edu|#{m}|#{c}|#{st}|#{z}\n^
-			@students << student
+			p = %Q^#{w}|#{f}|#{s}|#{f}.#{s}@mail.weber.edu|#{m}|#{c}|#{st}|#{z}\n^
+			@people << p
 
 			for j in 1..rand(1..@classCount)
 				course = @courses[r.rand(0..@courses.length-1)]
@@ -72,32 +72,32 @@ class RandomCSV
 		end
 		classesFile.close
 
-		# create the students output file
-		studentsFile = File.open(@studentsFilePath, "w")
-		@students.each do |s|
-			studentsFile.write(s)
+		# create the people output file
+		peopleFile = File.open(@peopleFilePath, "w")
+		@people.each do |s|
+			peopleFile.write(s)
 		end
-		studentsFile.close
+		peopleFile.close
 
 	end
 
 	def csvs
 		return @csvs
 	end
-	def students
-		return @students;
+	def people
+		return @people;
 	end
 	def classes
 		return @classes
 	end
-	def studentCount
-		return @students.length
+	def peopleCount
+		return @people.length
 	end
 	def classCount
 		return @classes.length
 	end
-	def studentsFilePath
-		return @studentsFilePath
+	def peopleFilePath
+		return @peopleFilePath
 	end
 	def classesFilepath
 		return @classesFilePath
