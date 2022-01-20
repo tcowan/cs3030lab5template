@@ -1,6 +1,6 @@
-#require_relative "peopledata"
+#require_relative "studentdata"
 
-course RandomCSV
+class RandomCSV
 
 	def initialize(csv, size=:small)
 		@csv = csv
@@ -13,11 +13,11 @@ course RandomCSV
 		@states = STATES
 		@zips = ZIPS
 		@majors = MAJORS
-		@courses = COURSES
+		@courseNames = COURSES
 		@termCodes = TERMCODES
 
 		r = Random.new
-		# determine number of people and courses
+		# determine number of students and classes
 		if size == :small
 			@peopleCount = r.rand(3..7)
 			@courseCount = r.rand(2..5)
@@ -44,11 +44,11 @@ course RandomCSV
 			c = @cities[r.rand(0..@cities.length-1)]
 			st = @states[r.rand(0..@states.length-1)]
 			z = @zips[r.rand(0..@zips.length-10)]
-			p = %Q^#{w}|#{f}|#{s}|#{f}.#{s}@mail.weber.edu|#{m}|#{c}|#{st}|#{z}\n^
-			@people << p
+			student = %Q^#{w}|#{f}|#{s}|#{f}.#{s}@mail.weber.edu|#{m}|#{c}|#{st}|#{z}\n^
+			@people << student
 
 			for j in 1..rand(1..@courseCount)
-				course = @courses[r.rand(0..@courses.length-1)]
+				course = @courseNames[r.rand(0..@courseNames.length-1)]
 				termcode = @termCodes[r.rand(0..@termCodes.length-1)]
 				csv = %Q^"#{w}","#{f}","#{s}","#{f}.#{s}@mail.weber.edu","#{m}","#{course}","#{termcode}","#{c}","#{st}","#{z}"^
 				@csvs << csv
@@ -93,7 +93,7 @@ course RandomCSV
 	def peopleCount
 		return @people.length
 	end
-	def courseCount
+	def coursesCount
 		return @courses.length
 	end
 	def peopleFilePath
