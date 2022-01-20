@@ -1,10 +1,10 @@
 Feature: Database contains correct information
 
-	Scenario: Classes table exists and is defined correctly
+	Scenario: Courses table exists and is defined correctly
 		Given a random small CSV file "random10.csv"
 		When I run `dbload "random10.csv" "people10.db"`
         And OUTPUT is printed
-		Then the classes table in "people10.db" should be defined correctly
+		Then the courses table in "people10.db" should be defined correctly
 		Then 30 points are awarded
 
 	Scenario: Peoples table exists and is defined correctly
@@ -21,11 +21,11 @@ Feature: Database contains correct information
 		Then the count of people from "people1.csv" in "people1.db" should be correct
 		Then 40 points are awarded
 
-	Scenario: classes table should have the correct number of records
+	Scenario: courses table should have the correct number of records
 		Given a random small CSV file "random2.csv"
 		When I run `dbload "random2.csv" "people2.db"`
         And OUTPUT is printed
-		Then the count of classes from "people2.csv" in "people2.db" should be correct
+		Then the count of courses from "people2.csv" in "people2.db" should be correct
 		Then 40 points are awarded
 
 	Scenario: People table contains correct information
@@ -35,10 +35,10 @@ Feature: Database contains correct information
 		Then the people table data from "random3.csv" in "people3.db" should be correct
 		Then 50 points are awarded
 
-	Scenario: Classes table contains correct information
+	Scenario: Courses table contains correct information
 		Given a random small CSV file "random4.csv"
 		When I run `dbload "random4.csv" "people4.db"`
         And OUTPUT is printed
-		Then the classes table data from "random4.csv" in "people4.db" should be correct
+		Then the courses table data from "random4.csv" in "people4.db" should be correct
 		Then 50 points are awarded
 
