@@ -141,7 +141,7 @@ Given /^the courses table data from "(.*)" in "(.*)" should be correct$/ do |csv
 	temp_output = all_commands.map { |c| c.output }.join("\n")
 	#log "Output:\n#{temp_output}"
 	if not temp_output.include? @csv.courses.sort.join("")
-		log "Your courses data:\n#{temp_output}\n\nExpected people data:\n#{@csv.courses.sort.join("")}"
+		log "Your courses data:\n#{temp_output}\n\nExpected courses data:\n#{@csv.courses.sort.join("")}"
 		raise "Courses data in #{db} not as expected"
 	end
 	
